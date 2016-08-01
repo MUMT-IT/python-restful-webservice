@@ -1,10 +1,13 @@
 from __future__ import print_function
+import os
 import psycopg2
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for, request
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
-conn = psycopg2.connect("dbname='mumtdb' user='likit' host='localhost'")
+conn = psycopg2.connect("dbname='mumtdb' user='likit'")
 
 @app.route('/api/hardware/0.1/<int:item_id>')
 @app.route('/api/hardware/0.1/')
@@ -25,5 +28,17 @@ def list(item_id=None):
     else:
         return 'Items not found'
 
+@app.route('/uploads', methods=['POST'])
+def upload():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file:
+            filename = os.path.join(app.config['UPLOAD_FOLDER'],
+                                    file.filename)
+            file.save(filename)
+            # print('File %s uploaded..' % request.files['name'])
+            print(request.values.get('name'))
+            return jsonify({"success": True})
+
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(host='128.199.227.62', debug=True)
