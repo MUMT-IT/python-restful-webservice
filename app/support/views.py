@@ -33,4 +33,4 @@ def upload():
             file.save(filename)
             # print('File %s uploaded..' % request.files['name'])
             print(request.values.get('name'))
-            return jsonify({"success": True}
+            return jsonify({"success": True})
