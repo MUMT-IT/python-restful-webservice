@@ -2,10 +2,17 @@ from __future__ import print_function
 import os
 import psycopg2
 from flask import Flask, jsonify, url_for, request
+from flask.ext.sqlalchemy import SQLAlchemy
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://likit:Intrinity0@localhost/mumtdb'
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+
+db = SQLAlchemy(app)
 
 conn = psycopg2.connect("dbname='mumtdb' user='likit'")
 
