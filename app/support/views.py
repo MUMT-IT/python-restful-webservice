@@ -1,3 +1,4 @@
+import psycopg2
 from flask import url_for
 from . import support
 from .. import db
