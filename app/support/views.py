@@ -6,7 +6,7 @@ from .. import db
 conn = psycopg2.connect("dbname='mumtdb' user='likit'")
 
 @support.route('/hardware/api/0.1/<int:item_id>')
-@support.route('/hardware/api/hardware/0.1/')
+@support.route('/hardware/api/0.1/')
 def list(item_id=None):
     cur = conn.cursor()
     if not item_id:
