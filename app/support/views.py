@@ -1,5 +1,5 @@
 import psycopg2
-from flask import url_for
+from flask import url_for, jsonify
 from . import support
 from .. import db
 
