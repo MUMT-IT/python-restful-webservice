@@ -3,6 +3,7 @@ import os
 import psycopg2
 from flask import Flask, jsonify, url_for, request
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.script import Shell
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -15,6 +16,11 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app)
 
 conn = psycopg2.connect("dbname='mumtdb' user='likit'")
+
+def make_shell_context():
+    return dict(app=app, db=db)
+
+manager.add_command("shell", Shell(make_context=make_shell_context))
 
 @app.route('/api/hardware/0.1/<int:item_id>')
 @app.route('/api/hardware/0.1/')
