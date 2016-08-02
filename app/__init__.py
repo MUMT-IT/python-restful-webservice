@@ -17,4 +17,8 @@ def create_app(config_name):
 
     from .support import support as support_blueprint
     app.register_blueprint(support_blueprint, url_prefix="/support")
+
+    from .eqa import eqa as eqa_blueprint
+    app.register_blueprint(eqa_blueprint, url_prefix="/eqa")
+
     return app
