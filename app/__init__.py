@@ -16,5 +16,5 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     from .support import support as support_blueprint
-    app.register_blueprint(support_blueprint, url_prefix="support")
+    app.register_blueprint(support_blueprint, url_prefix="/support")
     return app
